@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "909932873535",
+    "project_id": "tesla-login-c2e18",
+    "storage_bucket": "tesla-login-c2e18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909932873535:android:b48349ed82c24a2f59758a",
+        "android_client_info": {
+          "package_name": "com.example.teslalogin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIb1wNKU1UmrOeWVIMOIPS398-owPwlPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
