@@ -1,24 +1,28 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:teslalogin/screens/homeScreen.dart';
+import 'package:teslalogin/screens/loginScreen.dart';
 import 'package:teslalogin/user_auth/firebase_auth_services.dart';
 import 'package:teslalogin/widgets/loginForm.dart';
-import 'package:teslalogin/widgets/signUpWeb.dart';
 
-class LoginWeb extends StatefulWidget {
-  const LoginWeb({Key? key}) : super(key: key);
+class SignUpWeb extends StatefulWidget {
+  const SignUpWeb({Key? key}) : super(key: key);
 
   @override
-  State<LoginWeb> createState() => _LoginWebState();
+  State<SignUpWeb> createState() => _SignUpWebState();
 }
 
-class _LoginWebState extends State<LoginWeb> {
+class _SignUpWebState extends State<SignUpWeb> {
   final FirebaseAuthService _auth = FirebaseAuthService();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
+    _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -28,6 +32,8 @@ class _LoginWebState extends State<LoginWeb> {
   Widget build(BuildContext context) {
     final currentWidth = MediaQuery.of(context).size.width;
     final currentHeight = MediaQuery.of(context).size.height;
+    //Size size = MediaQuery.of(context).size;
+
     return Container(
       padding: const EdgeInsets.all(70),
       alignment: Alignment.center,
@@ -55,7 +61,7 @@ class _LoginWebState extends State<LoginWeb> {
                       child: const Expanded(
                         child: Image(
                           alignment: AlignmentDirectional.topStart,
-                          image: AssetImage('assets/teslabanner.jpg'),
+                          image: AssetImage('assets/teslabenner02.jpg'),
                           width: 1400,
                           height: 750,
                           fit: BoxFit.cover,
@@ -80,11 +86,17 @@ class _LoginWebState extends State<LoginWeb> {
                     ),
                     const SizedBox(height: 50),
                     FormContainerWidget(
+                      controller: _usernameController,
+                      hintText: "username",
+                      isPasswordField: false,
+                    ),
+                    const SizedBox(height: 20),
+                    FormContainerWidget(
                       controller: _emailController,
                       hintText: "Email",
                       isPasswordField: false,
                     ),
-                    const SizedBox(height: 50),
+                    const SizedBox(height: 20),
                     FormContainerWidget(
                       controller: _passwordController,
                       hintText: "Password",
@@ -92,7 +104,7 @@ class _LoginWebState extends State<LoginWeb> {
                     ),
                     const SizedBox(height: 50),
                     GestureDetector(
-                      onTap: _signIn,
+                      onTap: _signUp,
                       child: Container(
                         width: double.infinity,
                         height: 50,
@@ -102,7 +114,7 @@ class _LoginWebState extends State<LoginWeb> {
                         ),
                         child: const Center(
                             child: Text(
-                          "Login",
+                          "Sign Up",
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         )),
@@ -111,8 +123,8 @@ class _LoginWebState extends State<LoginWeb> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("No tienes cuenta"),
-                        SizedBox(
+                        const Text("¿Ya tienes cuenta?"),
+                        const SizedBox(
                           width: 5,
                         ),
                         GestureDetector(
@@ -120,10 +132,10 @@ class _LoginWebState extends State<LoginWeb> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SignUpWeb()));
+                                    builder: (context) => LoginScreen()));
                           },
                           child: const Text(
-                            "Registrate",
+                            "Iniciar Sesion",
                             style: TextStyle(
                                 color: Colors.red, fontWeight: FontWeight.bold),
                           ),
@@ -140,16 +152,18 @@ class _LoginWebState extends State<LoginWeb> {
     );
   }
 
-  void _signIn() async {
+  void _signUp() async {
+    // ignore: unused_local_variable
+    String username = _usernameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    User? user = await _auth.signInWithEmailAndPassword(email, password);
+    User? user = await _auth.signUpWithEmailAndPassword(email, password);
 
     if (user == null) {
       print("Ha ocurrido un error");
     } else {
-      print("Inicio de sesi'on exitoso");
+      print("Usuario creado correctamente");
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => HomePage()));
     }

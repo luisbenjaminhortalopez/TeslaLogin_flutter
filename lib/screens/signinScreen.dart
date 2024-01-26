@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teslalogin/widgets/loginweb.dart';
+import 'package:teslalogin/widgets/signUpWeb.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
 
       backgroundDecoration = const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/teslabanner.jpg'),
+          image: AssetImage('assets/teslabenner02.jpg'),
           fit: BoxFit.cover,
           opacity: 0.8,
         ),
@@ -36,7 +36,7 @@ class LoginScreen extends StatelessWidget {
         decoration: backgroundDecoration,
         child: const SingleChildScrollView(
           child: Column(
-            children: [LoginWeb()],
+            children: [SignUpWeb()],
           ),
         ),
       ),
